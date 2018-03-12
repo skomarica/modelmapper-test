@@ -25,6 +25,8 @@ public class MappingTest {
 
         modelMapper.map(newEntity, previousEntity);
 
+        System.out.println("ComplexEntity TypeMap mappings = " + modelMapper.getTypeMap(ComplexEntity.class, ComplexEntity.class).getMappings());
+
         assertThat(previousEntity.getPosition()).isEqualTo(1);
         assertThat(previousEntity.getSimpleEntity()).isNull();
     }
@@ -40,6 +42,8 @@ public class MappingTest {
         final ComplexEntity previousEntity = new ComplexEntity(2, new SimpleEntity(3L, "3 Name"));
 
         modelMapper.map(newEntity, previousEntity);
+
+        System.out.println("ComplexEntity TypeMap mappings = " + modelMapper.getTypeMap(ComplexEntity.class, ComplexEntity.class).getMappings());
 
         assertThat(previousEntity.getPosition()).isEqualTo(1);
         assertThat(previousEntity.getSimpleEntity()).isEqualTo(new SimpleEntity());
