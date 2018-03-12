@@ -14,11 +14,11 @@ import static org.modelmapper.convention.MatchingStrategies.STRICT;
 public class MappingTest {
 
     @Test
-    public void passing() {
+    public void mapWhenSimpleEntityMappingNotLearnedMapsFieldToNull() {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(STRICT);
 
-//        modelMapper.map(new SimpleEntity(), new SimpleEntity());
+        // modelMapper.map(new SimpleEntity(), new SimpleEntity());
 
         final ComplexEntity newEntity = new ComplexEntity(1, null);
         final ComplexEntity previousEntity = new ComplexEntity(2, new SimpleEntity(3L, "3 Name"));
@@ -30,7 +30,7 @@ public class MappingTest {
     }
 
     @Test
-    public void failing() {
+    public void mapWhenSimpleEntityMappingLearnedMapsFieldToEmptyInstance() {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(STRICT);
 
@@ -42,6 +42,6 @@ public class MappingTest {
         modelMapper.map(newEntity, previousEntity);
 
         assertThat(previousEntity.getPosition()).isEqualTo(1);
-        assertThat(previousEntity.getSimpleEntity()).isNull();
+        assertThat(previousEntity.getSimpleEntity()).isEqualTo(new SimpleEntity());
     }
 }
